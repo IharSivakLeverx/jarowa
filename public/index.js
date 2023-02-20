@@ -7,11 +7,13 @@ let googleMapStyles = [],
 const EVENTS = {
     BACK: "back",
     SEARCH: "search_position",
+    POSITION: 'point_position',
+    PHONE: 'click_phone',
 }
 
 document.querySelector(".back").addEventListener("click", () => {
     togglePages();
-    logCustomEvent("go_back", {'step': EVENTS.BACK,})
+    logCustomEvent(EVENTS.BACK, {'step': EVENTS.BACK,})
 }, false);
 
 document.querySelector('form').addEventListener('keypress', function (e) {
@@ -180,7 +182,7 @@ function displayProviders(data) {
             '<div class="grade lit"></div>' +
             '</div>' +
             '<div>' +
-            '<a href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
+            '<a onclick="clickButtonCallAction(' + el.ContactDetails.TelephoneNumber + ')" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
             '</div>' +
             '</div>' +
             '<div>' +
@@ -193,7 +195,7 @@ function displayProviders(data) {
             '<p class="text name">' + el.distance + 'km</p>' +
             '</div>' +
             '<div>' +
-            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ')">Standort</div>' +
+            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', ' + el.ContactDetails.name + ')">Standort</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -202,7 +204,13 @@ function displayProviders(data) {
     document.querySelector(".providers-wrapper").innerHTML = content;
 }
 
-function clickButtonSetCenterMap(lat, lng) {
+function clickButtonSetCenterMap(lat, lng, name) {
+    logCustomEvent(EVENTS.POSITION, {'name': name,})
+    map.setCenter(new google.maps.LatLng(lat, lng));
+}
+
+function clickButtonCallAction(phone) {
+    logCustomEvent(EVENTS.PHONE, {'phone': phone,})
     map.setCenter(new google.maps.LatLng(lat, lng));
 }
 
