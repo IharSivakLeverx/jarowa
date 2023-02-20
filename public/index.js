@@ -156,7 +156,8 @@ function pinsInit() {
             '</div>';
         new google.maps.InfoWindow({
             content: contentString
-        });
+        }).open({anchor: marker, map: map});
+
         return {...element, marker};
     });
 }

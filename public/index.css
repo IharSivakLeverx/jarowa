@@ -17,6 +17,47 @@
     --color-white-text: #FFFFFF;
 }
 
+/* styles for infoWindow */
+.gm-style .gm-style-iw-c {
+    top: -11px;
+    left: 16px;
+    transform: translateY(-50%);
+}
+.gm-style .gm-style-iw-a .gm-style-iw-t {
+    bottom: 1px !important;
+}
+.gm-style .gm-style-iw-t .gm-style-iw-tc {
+    display: none;
+}
+.gm-style .gm-style-iw {
+    border-radius: 4px !important;
+    background-color: #0090BD;
+    color: #FFFFFF;
+    padding: 4px 0 0 6px;
+}
+.gm-style .gm-style-iw button{
+    display: none !important;
+}
+.gm-style .gm-style-mtc:first-child button {
+    display: none !important;
+}
+.gm-style .gm-style-mtc:last-child button {
+    display: none !important;
+}
+.gm-style .gm-style-iw .gm-style-iw-d {
+    overflow: visible !important;
+    padding: 0 6px 4px 0;
+}
+.gm-style .gm-style-iw .gm-style-iw-d #content {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2em;
+}
+.gm-style .gm-style-iw .gm-style-iw-d #content p {
+    margin: 0;
+}
+
 body {
     position: relative;
     margin: 0;
