@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://www.googleoptimize.com/optimize.js?id=OPT-5N2MSQK"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JB35E5CS6Z"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-JB35E5CS6Z');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Jarowa</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Work+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+          rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script defer type="text/javascript" src="./slider.js"></script>
+    <script defer type="text/javascript" src="./index.js"></script>
+</head>
+<body>
+<div class="animation-page home-page visible">
+    <div class="header-wrapper header-page1-wrapper">
+        <div class="header-background">
+            <div class="header content-wrapper">
+                <header>
+                    <img src="./assets/logo.svg" alt="Jarowa"/>
+                </header>
+                <div class="billboard">
+                    <div class="form">
+                        <h1>
+                            Wasserschaden?<br/>Hier finden Sie Experten für Reparatur und Trocknung in Ihrer Nähe.
+                        </h1>
+                        <form onSubmit="applyForm(event)">
+                            <h4>Adresse des Schadens:</h4>
+                            <label class="single-field">
+                                Adresse*
+                                <input id="street" type="text" name="street" oninput="validate()"/>
+                            </label>
+                            <button id="submitButton" disabled="disabled">experten suchen</button>
+                            <span>*Alle Felder müssen ausgefüllt werden</span>
+                        </form>
+                    </div>
+                    <div class="image">
+                        <img src="./assets/header-image.png" alt="Billboard image"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-wrapper">
+            <div class="divider"></div>
+            <section>
+                <p class="main-text">
+                    Damit die Reparatur nicht noch mehr Nerven kostet als der Schaden selbst, ist die Wahl des richtigen
+                    Reparatur-Partners zentral. Bei uns finden Sie deshalb nur die am besten bewerteten
+                    Wasserschaden-Experten in Ihrer Umgebung, die gleichzeitig auch Vertrauenspartner der grössten
+                    Schweizer Versicherer sind.
+                </p>
+            </section>
+            <section class="carousel">
+                <article class="carousel-slide fade">
+                    <img alt="carousel image 1" src="./assets/carousel/carousel_1.png"/>
+                    <h4>Qualität: nur die besten</h4>
+                    <p>Bei uns finden Sie nur die am besten bewerteten Anbieter in Ihrer Region.</p>
+                </article>
+                <article class="carousel-slide fade">
+                    <img alt="carousel image 2" src="./assets/carousel/carousel_2.png"/>
+                    <h4>Sicherheit:<br/>nur Vertrauenspartner</h4>
+                    <p>Alle vorgeschlagenen Handwerker sind Vertrauenspartner der grössten Schweizer Versicherungen.</p>
+                </article>
+                <article class="carousel-slide fade">
+                    <img alt="carousel image 3" src="./assets/carousel/carousel_3.png"/>
+                    <h4>Ohne Aufpreis</h4>
+                    <p>Sie beauftragen direkt den passenden Handwerker. Durch die Vermittlung entstehen Ihnen keine
+                        zusätzlichen Kosten.</p>
+                </article>
+            </section>
+            <div class="carousel-control">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+
+            <div class="itc-slider">
+                <div class="itc-slider__wrapper">
+                    <div class="itc-slider__items">
+                        <div class="itc-slider__item">
+                            <img alt="carousel image 1" src="./assets/carousel/carousel_1.png"/>
+                            <h4>Qualität: nur die besten</h4>
+                            <p>Bei uns finden Sie nur die am besten bewerteten Anbieter in Ihrer Region.</p>
+                        </div>
+                        <div class="itc-slider__item">
+                            <img alt="carousel image 2" src="./assets/carousel/carousel_2.png"/>
+                            <h4>Sicherheit:<br/>nur Vertrauenspartner</h4>
+                            <p>Alle vorgeschlagenen Handwerker sind Vertrauenspartner der grössten Schweizer
+                                Versicherungen.</p>
+                        </div>
+                        <div class="itc-slider__item">
+                            <img alt="carousel image 3" src="./assets/carousel/carousel_3.png"/>
+                            <h4>Ohne Aufpreis</h4>
+                            <p>Sie beauftragen direkt den passenden Handwerker. Durch die Vermittlung entstehen Ihnen
+                                keine
+                                zusätzlichen Kosten.</p>
+                        </div>
+                    </div>
+                </div>
+                <ol class="itc-slider__indicators">
+                    <li class="itc-slider__indicator" data-slide-to="0"></li>
+                    <li class="itc-slider__indicator" data-slide-to="1"></li>
+                    <li class="itc-slider__indicator" data-slide-to="2"></li>
+                </ol>
+            </div>
+
+            <div class="divider"></div>
+        </div>
+        <div class="brand-background">
+            <div class="content-wrapper">
+                <section class="brand-description">
+                    <p>
+                        Über 60 führende Versicherungen, Immobilienbewirtschafter, Leasinggesellschaften und tausende
+                        Vertrauensdienstleister in fünf Ländern vertrauen den Services von JAROWA:
+                    </p>
+                </section>
+                <section class="brand-images">
+                    <img alt="Brands" src="./assets/brands.png">
+                </section>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <nav class="content-wrapper">
+            <a href="https://www.jarowa.group/">About us</a>
+            <a href="https://www.jarowa.group/en/contact/">Contact</a>
+            <a href="https://jarowa.jobs.personio.com/">Jobs</a>
+        </nav>
+        <div class="logo content-wrapper">
+            <img src="./assets/logo.png" alt="Jarowa"/>
+        </div>
+    </footer>
+</div>
+
+<div class="animation-page second-page">
+    <div class="header-wrapper header-wrapper-providers">
+        <div class="header-background">
+            <div class="header content-wrapper">
+                <header>
+                    <div class="back"></div>
+                    <img src="./assets/logo.svg" alt="Jarowa"/>
+                </header>
+            </div>
+        </div>
+    </div>
+    <div id="map"></div>
+    <div class="content content-providers">
+        <div class="content-wrapper">
+            <h4 class="text-providers">Our recomended providers</h4>
+        </div>
+    </div>
+    <div class="providers-wrapper">
+    </div>
+</div>
+
+<script type="module">
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzYISYlcteVuJ-F-5Z7kdzwej-dgiBIIg",
+        authDomain: "jarowa.firebaseapp.com",
+        projectId: "jarowa",
+        storageBucket: "jarowa.appspot.com",
+        messagingSenderId: "977992798236",
+        appId: "1:977992798236:web:0d23b2c08d576e319e8fd9",
+        measurementId: "G-JB35E5CS6Z"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzYISYlcteVuJ-F-5Z7kdzwej-dgiBIIg&libraries=places&callback=initMap&v=weekly"
+        defer
+></script>
+</body>
+</html>
