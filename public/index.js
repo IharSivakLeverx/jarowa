@@ -2,7 +2,8 @@ let googleMapStyles = [],
     dataProviders = [],
     map = '',
     arrayOfMarkers = [],
-    autocomplete = null;
+    autocomplete = null,
+    userMarker = null;
 
 const EVENTS = {
     BACK: "back",
@@ -45,6 +46,9 @@ function logCustomEvent(eventName, inputSettings) {
 }
 
 function updateMap() {
+    if (userMarker) {
+        userMarker.setVisible(false);
+    }
     const svgMarker = {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 8,
@@ -57,7 +61,7 @@ function updateMap() {
         icon: svgMarker,
         anchorPoint: new google.maps.Point(0, -29),
     });
-
+    userMarker = marker;
     marker.setVisible(false);
 
     const place = autocomplete.getPlace();
@@ -80,8 +84,32 @@ function updateMap() {
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
+    let postalCode, newArray;
+    try {
+        postalCode = place.address_components.filter(item => item.types.includes("postal_code"))[0].long_name;
+        newArray = arrayOfMarkers.filter(item => {
+            const visible = item.ContactDetails.CompanyAddress.ZipCode === postalCode;
+            if (visible) {
+                item.infoWindow.open({anchor: item.marker, map: map});
+                item.marker.setVisible(true);
+            } else {
+                item.infoWindow.close({anchor: item.marker, map: map});
+                item.marker.setVisible(false);
+            }
+            return visible;
+        });
+    } catch (error) {
+        console.log(`Postal code wasn't found due to: ${error}`);
+        postalCode = "";
+        newArray = arrayOfMarkers;
+        newArray.forEach(item => {
+            item.marker.open({anchor: item.marker, map: map});
+            item.marker.setVisible(true);
+        })
+    }
+
     // Calculate and display the distance between markers
-    let newTest = arrayOfMarkers.map(item => ({
+    let newTest = newArray.map(item => ({
         ...item,
         distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
     }))
@@ -156,11 +184,12 @@ function pinsInit() {
             '</b></p>' +
             '</div>' +
             '</div>';
-        new google.maps.InfoWindow({
+        let infoWindow = new google.maps.InfoWindow({
             content: contentString
         }).open({anchor: marker, map: map});
+        marker.setVisible(false);
 
-        return {...element, marker};
+        return {...element, marker, infoWindow};
     });
 }
 
