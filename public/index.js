@@ -155,7 +155,7 @@ function initMap() {
     };
     const options = {
         bounds: defaultBounds,
-        componentRestrictions: {country: ["ch", "lu"]},
+        componentRestrictions: {country: ["ch", "lu", "de"]},
         fields: ["address_components", "geometry", "icon", "name"],
         strictBounds: false,
         types: ["establishment"],
@@ -186,7 +186,7 @@ function pinsInit() {
             '</div>';
         let infoWindow = new google.maps.InfoWindow({
             content: contentString
-        }).open({anchor: marker, map: map});
+        });
         marker.setVisible(false);
 
         return {...element, marker, infoWindow};
@@ -256,7 +256,7 @@ dataProviders = [{
             "Canton": "ZH",
             "AdministrativeAreaLevel2": "Zürich",
             "Country": "CH",
-            "ZipCode": "",
+            "ZipCode": "8004",
             "GeolocationX": 47.3783808,
             "GeolocationY": 8.5104531
         },
@@ -318,7 +318,7 @@ dataProviders = [{
                 "Canton": "ZH",
                 "AdministrativeAreaLevel2": "Bülach",
                 "Country": "CH",
-                "ZipCode": "",
+                "ZipCode": "8180",
                 "GeolocationX": 47.423095,
                 "GeolocationY": 8.6020923
             },
@@ -484,7 +484,7 @@ dataProviders = [{
                 "Canton": "ZH",
                 "AdministrativeAreaLevel2": "Zürich",
                 "Country": "CH",
-                "ZipCode": "",
+                "ZipCode": "8001",
                 "GeolocationX": 47.3768866,
                 "GeolocationY": 8.541694
             },
@@ -546,7 +546,7 @@ dataProviders = [{
                 "Canton": "FR",
                 "AdministrativeAreaLevel2": "Sarine District",
                 "Country": "CH",
-                "ZipCode": "",
+                "ZipCode": "1700",
                 "GeolocationX": 46.8064773,
                 "GeolocationY": 7.161971899999999
             },
@@ -668,7 +668,7 @@ dataProviders = [{
                 "Canton": "TI",
                 "AdministrativeAreaLevel2": "Lugano District",
                 "Country": "CH",
-                "ZipCode": "",
+                "ZipCode": "6945",
                 "GeolocationX": 46.0503329,
                 "GeolocationY": 8.9489659
             },
@@ -688,7 +688,7 @@ dataProviders = [{
                 "Canton": "SG",
                 "AdministrativeAreaLevel2": "St. Gallen",
                 "Country": "CH",
-                "ZipCode": "",
+                "ZipCode": "9000",
                 "GeolocationX": 47.4211865,
                 "GeolocationY": 9.3586293
             },
