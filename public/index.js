@@ -211,7 +211,7 @@ function displayProviders(data) {
             '<div class="grade lit"></div>' +
             '</div>' +
             '<div>' +
-            '<a onclick="clickButtonCallAction(' + el.ContactDetails.TelephoneNumber + ')" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
+            '<a onclick="clickButtonCallAction(' + el.ContactDetails.TelephoneNumber + ')" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">' + el.ContactDetails.TelephoneNumber + '</a>' +
             '</div>' +
             '</div>' +
             '<div>' +
