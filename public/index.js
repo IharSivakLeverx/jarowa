@@ -158,7 +158,6 @@ function initMap() {
         componentRestrictions: {country: ["ch"]},
         fields: ["address_components", "geometry", "icon", "name"],
         strictBounds: false,
-        types: ["establishment"],
     };
     autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.setFields(["address"]);
@@ -211,7 +210,7 @@ function displayProviders(data) {
             '<div class="grade lit"></div>' +
             '</div>' +
             '<div>' +
-            '<a onclick="clickButtonCallAction(' + el.ContactDetails.TelephoneNumber + ')" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">' + el.ContactDetails.TelephoneNumber + '</a>' +
+            '<a onclick="clickButtonCallAction(' + el.ContactDetails.TelephoneNumber + ')" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
             '</div>' +
             '</div>' +
             '<div>' +
