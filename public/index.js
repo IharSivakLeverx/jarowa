@@ -210,7 +210,7 @@ function displayProviders(data) {
             '<div class="grade lit"></div>' +
             '</div>' +
             '<div>' +
-            '<a onclick="clickButtonCallAction(' + el.ContactDetails.TelephoneNumber + ')" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
+            '<a onclick="clickButtonCallAction(event)" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
             '</div>' +
             '</div>' +
             '<div>' +
@@ -237,9 +237,17 @@ function clickButtonSetCenterMap(lat, lng, name) {
     map.setCenter(new google.maps.LatLng(lat, lng));
 }
 
-function clickButtonCallAction(phone) {
+function clickButtonCallAction(event) {
+    const phone = event.target.getAttribute('href').split('tel:')[1];
     logCustomEvent(EVENTS.PHONE, {'phone': phone,})
-    map.setCenter(new google.maps.LatLng(lat, lng));
+    if (window.innerWidth > 700) {
+        event.preventDefault();
+        alert(phone);
+        // let text;
+        // if (confirm(phone) === true) {
+        //     // window.open(phone, '_self')
+        // }
+    }
 }
 
 dataProviders = [{
