@@ -103,7 +103,7 @@ function updateMap() {
         postalCode = "";
         newArray = arrayOfMarkers;
         newArray.forEach(item => {
-            item.marker.open({anchor: item.marker, map: map});
+            item.infoWindow.open({anchor: item.marker, map: map});
             item.marker.setVisible(true);
         })
     }
