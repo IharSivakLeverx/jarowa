@@ -155,7 +155,7 @@ function initMap() {
     };
     const options = {
         bounds: defaultBounds,
-        componentRestrictions: {country: ["ch", "lu", "de"]},
+        componentRestrictions: {country: ["ch", "lu", "de", "nl"]},
         fields: ["address_components", "geometry", "icon", "name"],
         strictBounds: false,
         types: ["establishment"],
