@@ -229,7 +229,10 @@ function displayProviders(data) {
             '</div>' +
             '</div>';
     });
-    document.querySelector(".providers-wrapper").innerHTML = content;
+    if (content) {
+        document.querySelector(".text-providers").classList.remove('hidden');
+        document.querySelector(".providers-wrapper").innerHTML = content;
+    }
 }
 
 function clickButtonSetCenterMap(lat, lng, name) {
@@ -242,13 +245,21 @@ function clickButtonCallAction(event) {
     logCustomEvent(EVENTS.PHONE, {'phone': phone,})
     if (window.innerWidth > 700) {
         event.preventDefault();
-        alert(phone);
+        document.querySelector(".phone-popup-number").innerHTML = phone;
+        document.querySelector(".phone-popup").classList.remove('hidden');
+        // alert(phone);
         // let text;
         // if (confirm(phone) === true) {
         //     // window.open(phone, '_self')
         // }
     }
 }
+
+(function closePopup() {
+    document.querySelector(".phone-popup-button").addEventListener('click', () => {
+        document.querySelector(".phone-popup").classList.add('hidden');
+    });
+})();
 
 dataProviders = [{
     "Id": "17f878fe-ecf4-4558-b7d3-19db30e10cfa",
