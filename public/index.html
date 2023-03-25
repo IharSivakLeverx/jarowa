@@ -35,7 +35,7 @@
         <div class="header-background">
             <div class="header content-wrapper">
                 <header>
-                    <img src="./assets/logo.svg" alt="Jarowa"/>
+                    <img class="jarowa-logo" src="./assets/logo.png" alt="Jarowa"/>
                 </header>
                 <div class="billboard">
                     <div class="form">
@@ -45,7 +45,7 @@
                         <form onSubmit="applyForm(event)">
                             <h4>Adresse des Schadens:</h4>
                             <label class="single-field">
-                                <input id="street" type="text" name="street" oninput="validate()"/>
+                                <input id="street" type="text" name="street" placeholder= "Geben Sie einen Standort ein." oninput="validate()"/>
                             </label>
                             <button id="submitButton" disabled="disabled">experten suchen</button>
                         </form>
@@ -70,17 +70,17 @@
             </section>
             <section class="carousel">
                 <article class="carousel-slide fade">
-                    <img alt="carousel image 1" src="./assets/carousel/carousel_1.png"/>
+                    <img alt="carousel image 1" src="./assets/carousel/carousel_1.svg"/>
                     <h4>Qualität: nur die besten</h4>
                     <p>Bei uns finden Sie nur die am besten bewerteten Anbieter in Ihrer Region.</p>
                 </article>
                 <article class="carousel-slide fade">
-                    <img alt="carousel image 2" src="./assets/carousel/carousel_2.png"/>
+                    <img alt="carousel image 2" src="./assets/carousel/carousel_2.svg"/>
                     <h4>Sicherheit:<br/>nur Vertrauenspartner</h4>
                     <p>Alle vorgeschlagenen Handwerker sind Vertrauenspartner der grössten Schweizer Versicherungen.</p>
                 </article>
                 <article class="carousel-slide fade">
-                    <img alt="carousel image 3" src="./assets/carousel/carousel_3.png"/>
+                    <img alt="carousel image 3" src="./assets/carousel/carousel_3.svg"/>
                     <h4>Ohne Aufpreis</h4>
                     <p>Sie beauftragen direkt den passenden Handwerker. Durch die Vermittlung entstehen Ihnen keine
                         zusätzlichen Kosten.</p>
@@ -96,18 +96,18 @@
                 <div class="itc-slider__wrapper">
                     <div class="itc-slider__items">
                         <div class="itc-slider__item">
-                            <img alt="carousel image 1" src="./assets/carousel/carousel_1.png"/>
+                            <img alt="carousel image 1" src="./assets/carousel/carousel_1.svg"/>
                             <h4>Qualität: nur die besten</h4>
                             <p>Bei uns finden Sie nur die am besten bewerteten Anbieter in Ihrer Region.</p>
                         </div>
                         <div class="itc-slider__item">
-                            <img alt="carousel image 2" src="./assets/carousel/carousel_2.png"/>
+                            <img alt="carousel image 2" src="./assets/carousel/carousel_2.svg"/>
                             <h4>Sicherheit:<br/>nur Vertrauenspartner</h4>
                             <p>Alle vorgeschlagenen Handwerker sind Vertrauenspartner der grössten Schweizer
                                 Versicherungen.</p>
                         </div>
                         <div class="itc-slider__item">
-                            <img alt="carousel image 3" src="./assets/carousel/carousel_3.png"/>
+                            <img alt="carousel image 3" src="./assets/carousel/carousel_3.svg"/>
                             <h4>Ohne Aufpreis</h4>
                             <p>Sie beauftragen direkt den passenden Handwerker. Durch die Vermittlung entstehen Ihnen
                                 keine
@@ -133,7 +133,51 @@
                     </p>
                 </section>
                 <section class="brand-images">
-                    <img alt="Brands" src="./assets/brands.png">
+                    <a href="https://www.axa.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220208-logo-axa-neu-adjusted.jpg?t=1644322407">
+                    </a>
+                    <a href="https://www.generali.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220126-generali-adjusted.jpg?t=1643380774">
+                    </a>
+                    <a href="https://www.helvetia.com/corporate/web/de/home.html" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220127-logo-helvetia-logo-strichversion-positiv-markenzusatz-adjusted.jpg?t=1643381304">
+                    </a>
+                    <a href="https://www.allianz.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220315-logo-allianz-adjusted.jpg?t=1647508439">
+                    </a>
+                    <a href="https://www.baloise.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220315-logo-basler-adjusted.jpg?t=1647508456">
+                    </a>
+                    <a href="https://www.helsana.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220316-logo-helsana-adjusted.jpg?t=1647508473">
+                    </a>
+                    <a href="https://www.bgv.de/privatkunden/index.xhtml" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-bgv-adjusted.jpg?t=1643381949">
+                    </a>
+                    <a href="https://www.vaudoise.ch/de" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-vaudoise-adjusted.jpg?t=1643382283">
+                    </a>
+                    <a href="https://postcompanycars.post.ch/de" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-post-adjusted.jpg?t=1643381656">
+                    </a>
+                    <a href="https://www.carvolution.com/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220208-logo-carvolution-adjusted.jpg?t=1644322235">
+                    </a>
+                    <a href="https://www.sanitas.com/de/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-sanitas-adjusted.jpg?t=1644322320">
+                    </a>
+                    <a href="https://www.oekk.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-%C3%B6kk-adjusted.jpg?t=1643382905">
+                    </a>
+                    <a href="https://www.europ-assistance.ch/ch-de" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-europ-assistance-adjusted.jpg?t=1643383174">
+                    </a>
+                    <a href="https://niederer.com/de/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-niederer-adjusted.jpg?t=1643383432">
+                    </a>
+                    <a href="https://www.elron.ch/" class="l-item">
+                        <img src="https://u.jimcdn.com/cms/o/s6a47b57f1b94a4ec/userlayout/img/20220128-logo-elron-adjusted.jpg?t=1643383965">
+                    </a>
                 </section>
             </div>
         </div>
@@ -145,7 +189,7 @@
             <a href="https://jarowa.jobs.personio.com/">Jobs</a>
         </nav>
         <div class="logo content-wrapper">
-            <img src="./assets/logo.png" alt="Jarowa"/>
+            <img class="jarowa-logo" src="./assets/logo.png" alt="Jarowa"/>
         </div>
     </footer>
 </div>
@@ -156,7 +200,7 @@
             <div class="header content-wrapper">
                 <header>
                     <div class="back"></div>
-                    <img src="./assets/logo.svg" alt="Jarowa"/>
+                    <img class="jarowa-logo" src="./assets/logo.png" alt="Jarowa"/>
                 </header>
             </div>
         </div>
@@ -164,7 +208,7 @@
     <div id="map"></div>
     <div class="content content-providers">
         <div class="content-wrapper">
-            <h4 class="text-providers hidden">Our recomended providers</h4>
+            <h4 class="text-providers hidden">Unsere Empfehlungen</h4>
         </div>
     </div>
     <div class="providers-wrapper">
