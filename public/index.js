@@ -192,6 +192,10 @@ function pinsInit() {
         });
         marker.setVisible(false);
 
+        google.maps.event.addListener(marker, 'click', function() {
+            triggerClick(element.Id);
+        });
+
         google.maps.event.addListener(marker, 'mouseover', function() {
             redrawHover(element, marker, ' highlighted', true);
         });
