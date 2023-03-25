@@ -35,6 +35,15 @@
     color: #FFFFFF;
     padding: 4px 0 0 6px;
 }
+
+.gm-style .gm-style-iw.highlighted {
+    background-color: #002242;
+}
+
+.gm-style .gm-style-iw.active {
+    background-color: #002242;
+}
+
 .gm-style .gm-style-iw button{
     display: none !important;
 }
@@ -48,12 +57,22 @@
     overflow: visible !important;
     padding: 0 6px 4px 0;
 }
+
 .gm-style .gm-style-iw .gm-style-iw-d #content {
     color: #fff;
     font-size: 12px;
     font-weight: 500;
     line-height: 1.2em;
 }
+
+.gm-style .gm-style-iw.highlighted .gm-style-iw-d #content {
+    color: #3BDC54;
+}
+
+.gm-style .gm-style-iw.active .gm-style-iw-d #content {
+    color: #3BDC54;
+}
+
 .gm-style .gm-style-iw .gm-style-iw-d #content p {
     margin: 0;
 }

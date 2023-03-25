@@ -166,6 +166,8 @@ function initMap() {
 
 function pinsInit() {
     let iconPin = './assets/map_pin.svg';
+    let iconPinActive = './assets/map_pin_highlighted.svg';
+
 
     return dataProviders.map(function (element) {
         let marker = new google.maps.Marker({
@@ -174,7 +176,7 @@ function pinsInit() {
             icon: iconPin
         });
         let contentString =
-            '<div id="content">' +
+            `<div id="content" class="${element.Id}">` +
             '<div id="siteNotice">' +
             '</div>' +
             '<div id="bodyContent">' +
@@ -188,8 +190,59 @@ function pinsInit() {
         });
         marker.setVisible(false);
 
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            redrawHover(element, marker, ' highlighted', true);
+        });
+
+        marker.addListener('mouseout', function() {
+            redrawHover(element, marker, ' highlighted', false);
+        });
+
+
         return {...element, marker, infoWindow};
     });
+}
+
+function redrawHover(element, marker, style, active) {
+    let iconPin = './assets/map_pin.svg';
+    let iconPinActive = './assets/map_pin_highlighted.svg';
+    const className = element.Id;
+    try {
+        const container = document.getElementsByClassName(className)[0];
+        const parent = container.parentElement.parentElement.parentElement;
+        const hoveStyle = style;
+        if (!parent.className.includes(' active') || style === ' active') {
+            if (parent.className.includes(hoveStyle) || !active) {
+                parent.className = parent.className.replace(hoveStyle, '');
+                marker.setIcon(iconPin);
+            } else {
+                parent.className = `${parent.className}${hoveStyle}`;
+                marker.setIcon(iconPinActive);
+            }
+        }
+    } catch (error) {
+        console.log('error', error);
+    }
+  //map.getBounds();
+}
+
+function triggerClick(Id) {
+  const marker = displayPoints.find(item => item.Id === Id);
+  displayPoints.forEach(item => {
+      if (item && item.marker){
+          redrawHover(item, item.marker, ' active', false)
+      }
+  });
+  if (marker && marker.marker) {
+      redrawHover(marker, marker.marker, ' active', true)
+  }
+
+  const newArray = displayPoints.filter(item => item.Id !== Id);
+  displayProviders([marker, ...newArray]);
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0;
+
+  //map.getBounds();
 }
 
 function displayProviders(data) {
@@ -223,7 +276,7 @@ function displayProviders(data) {
             '<p class="text name">' + el.distance + 'km</p>' +
             '</div>' +
             '<div>' +
-            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', ' + el.ContactDetails.name + ')">Standort</div>' +
+            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\')">Standort</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -234,10 +287,10 @@ function displayProviders(data) {
         document.querySelector(".providers-wrapper").innerHTML = content;
     }
 }
-
-function clickButtonSetCenterMap(lat, lng, name) {
+function clickButtonSetCenterMap(lat, lng, name, Id) {
     logCustomEvent(EVENTS.POSITION, {'name': name,})
     map.setCenter(new google.maps.LatLng(lat, lng));
+    triggerClick(Id);
 }
 
 function clickButtonCallAction(event) {
