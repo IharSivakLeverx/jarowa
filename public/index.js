@@ -3,7 +3,8 @@ let googleMapStyles = [],
     map = '',
     arrayOfMarkers = [],
     autocomplete = null,
-    userMarker = null;
+    userMarker = null,
+    displayPoints = [];
 
 const EVENTS = {
     BACK: "back",
@@ -109,12 +110,13 @@ function updateMap() {
     }
 
     // Calculate and display the distance between markers
-    let newTest = newArray.map(item => ({
+    let displayNearPoints = newArray.map(item => ({
         ...item,
         distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
     }))
-    newTest = newTest.sort((a, b) => (a.distance - b.distance));
-    displayProviders(newTest);
+    displayNearPoints = displayNearPoints.sort((a, b) => (a.distance - b.distance));
+    displayPoints = displayNearPoints;
+    displayProviders(displayNearPoints);
 }
 
 function applyForm(event) {
