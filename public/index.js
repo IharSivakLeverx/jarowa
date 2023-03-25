@@ -79,8 +79,8 @@ function updateMap() {
         map.fitBounds(place.geometry.viewport);
     } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(10);
     }
+    map.setZoom(window.innerWidth < 800 ? 18 : 16,);
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -141,7 +141,7 @@ function haversine_distance(mk1, mk2) {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
+        zoom: window.innerWidth < 800 ? 30 : 10,
         center: {lat: 47.37882, lng: 8.54463}
     });
     map.setOptions({styles: googleMapStyles});
