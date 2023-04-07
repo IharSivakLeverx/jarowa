@@ -177,7 +177,7 @@ function pinsInit() {
             icon: iconPin
         });
         let contentString =
-            `<div id="content" class="${element.Id}" onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, '${element.Id}', ${true})">` +
+            `<div id="content" class="${element.Id}" onmouseover="hoverInfoToHoverPin('${element.Id}', ${true})" onmouseout="hoverInfoToHoverPin('${element.Id}', ${false})" onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, '${element.Id}', ${true})">` +
             '<div id="siteNotice">' +
             '</div>' +
             '<div id="bodyContent">' +
@@ -192,6 +192,7 @@ function pinsInit() {
         marker.setVisible(false);
 
         google.maps.event.addListener(marker, 'click', function() {
+            redrawHover(element, marker, ' highlighted', false);
             triggerClick(element.Id, true);
         });
 
@@ -229,6 +230,29 @@ function redrawHover(element, marker, style, active) {
         console.log('error', error);
     }
   //map.getBounds();
+}
+
+function hoverInfoToHoverPin(Id, hoverState) {
+    const marker = displayPoints.find(item => item.Id === Id);
+    if (marker && marker.marker) {
+        let iconPin = './assets/map_pin.svg';
+        let iconPinActive = './assets/map_pin_highlighted.svg';
+        const className = Id;
+        try {
+            const container = document.getElementsByClassName(className)[0];
+            const parent = container.parentElement.parentElement.parentElement;
+            if (!parent.className.includes('active')) {
+                if (hoverState) {
+                    marker.marker.setIcon(iconPinActive);
+                }
+                else {
+                    marker.marker.setIcon(iconPin);
+                }
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
 }
 
 function triggerClick(Id, resort=false) {
