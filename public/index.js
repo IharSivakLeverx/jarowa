@@ -85,8 +85,16 @@ function updateMap() {
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
-    let postalCode, newArray;
+    let postalCode, newArray, displayNearPoints;
+
     try {
+        // Calculate and display the distance between markers
+        displayNearPoints = arrayOfMarkers.map(item => ({
+            ...item,
+            distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
+        }))
+        displayNearPoints = displayNearPoints.sort((a, b) => (a.distance - b.distance));
+
         postalCode = place.address_components.filter(item => item.types.includes("postal_code"))[0].long_name;
         newArray = arrayOfMarkers.filter(item => {
             const visible = item.ContactDetails.CompanyAddress.ZipCode === postalCode;
@@ -99,22 +107,18 @@ function updateMap() {
             }
             return visible;
         });
+        if (newArray.length) displayNearPoints = displayNearPoints.slice(0,3);
     } catch (error) {
         console.log(`Postal code wasn't found due to: ${error}`);
         postalCode = "";
-        newArray = arrayOfMarkers;
+        // newArray = arrayOfMarkers;
+        displayNearPoints = arrayOfMarkers;
         newArray.forEach(item => {
             item.infoWindow.open({anchor: item.marker, map: map});
             item.marker.setVisible(true);
         })
     }
 
-    // Calculate and display the distance between markers
-    let displayNearPoints = newArray.map(item => ({
-        ...item,
-        distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
-    }))
-    displayNearPoints = displayNearPoints.sort((a, b) => (a.distance - b.distance));
     displayPoints = displayNearPoints;
     displayProviders(displayNearPoints);
 }
@@ -168,8 +172,6 @@ function initMap() {
 
 function pinsInit() {
     let iconPin = './assets/map_pin.svg';
-    let iconPinActive = './assets/map_pin_highlighted.svg';
-
 
     return dataProviders.map(function (element) {
         let marker = new google.maps.Marker({

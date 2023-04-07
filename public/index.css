@@ -826,15 +826,15 @@ footer .logo {
 }
 .providers-wrapper .content-wrapper {
     padding: 0 1em;
-    max-width: 500px;
+    max-width: 420px;
 }
 .content-providers .content-wrapper{
-    max-width: 500px;
+    max-width: 420px;
     padding: 0 1em;
 }
 .provider-item {
     border-top: 1px solid #B0D7E3;
-    padding: 16px 0 24px;
+    padding: 8px 0 12px;
 }
 .column-wrapper {
     display: flex;
