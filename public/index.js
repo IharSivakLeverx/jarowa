@@ -75,18 +75,19 @@ function updateMap() {
     }
 
     // If the place has a geometry, then present it on a map.
-    map.setZoom(window.innerWidth < 800 ? 30 : 10);
+    // map.setZoom(window.innerWidth < 800 ? 30 : 10);
     if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
     } else {
         map.setCenter(place.geometry.location);
     }
-    // map.setZoom(window.innerWidth < 800 ? 18 : 16);
+    map.setCenter(place.geometry.location);
+    map.setZoom(window.innerWidth < 800 ? 12 : 10);
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
-    let postalCode, newArray, displayNearPoints;
+    let newArray, displayNearPoints;
 
     try {
         // Calculate and display the distance between markers
@@ -95,43 +96,28 @@ function updateMap() {
             distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
         }))
         displayNearPoints = displayNearPoints.sort((a, b) => (a.distance - b.distance));
-
-        postalCode = place.address_components.filter(item => item.types.includes("postal_code"))[0].long_name;
-        newArray = arrayOfMarkers.filter(item => {
-            const visible = item.ContactDetails.CompanyAddress.ZipCode === postalCode;
-            // if (visible) {
-            //     item.infoWindow.open({anchor: item.marker, map: map});
-            //     item.marker.setVisible(true);
-            // } else {
-            //     item.infoWindow.close({anchor: item.marker, map: map});
-            //     item.marker.setVisible(false);
-            // }
-            return visible;
-        });
-        if (newArray.length) displayNearPoints = displayNearPoints.slice(0,3);
-        const idsArray = displayNearPoints.map(item => item.Id);
-        arrayOfMarkers.forEach((item) => {
-            if (idsArray.includes(item.Id)) {
-                item.infoWindow.open({anchor: item.marker, map: map});
-                item.marker.setVisible(true);
-            } else {
-                item.infoWindow.close({anchor: item.marker, map: map});
-                item.marker.setVisible(false);
-            }
-        })
     } catch (error) {
         console.log(`Postal code wasn't found due to: ${error}`);
-        postalCode = "";
-        newArray = arrayOfMarkers;
         if (!displayNearPoints) displayNearPoints = arrayOfMarkers;
-        newArray.forEach(item => {
+    }
+
+    displayNearPoints = displayNearPoints.slice(0,3);
+    const idsArray = displayNearPoints.map(item => item.Id);
+    arrayOfMarkers.forEach((item) => {
+        if (idsArray.includes(item.Id)) {
             item.infoWindow.open({anchor: item.marker, map: map});
             item.marker.setVisible(true);
-        })
-    }
+        } else {
+            item.infoWindow.close({anchor: item.marker, map: map});
+            item.marker.setVisible(false);
+        }
+    })
 
     displayPoints = displayNearPoints;
     displayProviders(displayNearPoints);
+    const bounds = new google.maps.LatLngBounds();
+    displayNearPoints.forEach((item) => bounds.extend(item.marker))
+    map.fitBounds(bounds);
 }
 
 function applyForm(event) {
@@ -163,7 +149,7 @@ function initMap() {
 
     const input = document.getElementById("street");
     const center = {lat: 50.064192, lng: -130.605469};
-// Create a bounding box with sides ~10km away from the center point
+    // Create a bounding box with sides ~10km away from the center point
     const defaultBounds = {
         north: center.lat + 0.1,
         south: center.lat - 0.1,
@@ -311,7 +297,6 @@ function displayProviders(data) {
     }
 }
 function clickButtonSetCenterMap(lat, lng, name, Id) {
-    console.log('---rerererere');
     logCustomEvent(EVENTS.POSITION, {'name': name,})
     map.setCenter(new google.maps.LatLng(lat, lng));
     triggerClick(Id);
@@ -665,7 +650,7 @@ dataProviders = [{
                 "GeolocationX": 47.4038966,
                 "GeolocationY": 8.5343584
             },
-            "CompanyWebsite": "www.iogroup.ai"
+            "CompanyWebsite": "https://www.iogroup.ai"
         }
     },
     {
