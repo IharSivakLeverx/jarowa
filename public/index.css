@@ -73,6 +73,11 @@
     color: #3BDC54;
 }
 
+.gm-style-iw:hover {
+    cursor: pointer;
+    background-color: #002242;
+}
+
 .gm-style .gm-style-iw .gm-style-iw-d #content p {
     margin: 0;
 }

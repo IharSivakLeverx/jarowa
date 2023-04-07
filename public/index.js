@@ -190,8 +190,9 @@ function pinsInit() {
             map: map,
             icon: iconPin
         });
+        // onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, ${element.Id})}"
         let contentString =
-            `<div id="content" class="${element.Id}">` +
+            `<div id="content" class="${element.Id}" onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, '${element.Id}')">` +
             '<div id="siteNotice">' +
             '</div>' +
             '<div id="bodyContent">' +
@@ -310,6 +311,7 @@ function displayProviders(data) {
     }
 }
 function clickButtonSetCenterMap(lat, lng, name, Id) {
+    console.log('---rerererere');
     logCustomEvent(EVENTS.POSITION, {'name': name,})
     map.setCenter(new google.maps.LatLng(lat, lng));
     triggerClick(Id);
