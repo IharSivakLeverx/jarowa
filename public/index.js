@@ -123,7 +123,7 @@ function updateMap() {
         console.log(`Postal code wasn't found due to: ${error}`);
         postalCode = "";
         newArray = arrayOfMarkers;
-        displayNearPoints = arrayOfMarkers;
+        if (!displayNearPoints) displayNearPoints = arrayOfMarkers;
         newArray.forEach(item => {
             item.infoWindow.open({anchor: item.marker, map: map});
             item.marker.setVisible(true);
@@ -267,6 +267,7 @@ function triggerClick(Id) {
 function displayProviders(data) {
     let content = '';
     data.forEach((el) => {
+        let companyLink = el.ContactDetails.CompanyWebsite;
         let address = el.ContactDetails.CompanyAddress.Street ? el.ContactDetails.CompanyAddress.Street + ' ' + el.ContactDetails.CompanyAddress.HouseNumber + ', ' : '';
         let municipality = el.ContactDetails.CompanyAddress.Municipality ? el.ContactDetails.CompanyAddress.Municipality + ' ' + el.ContactDetails.CompanyAddress.ZipCode : '';
         content +=
@@ -286,13 +287,15 @@ function displayProviders(data) {
             '</div>' +
             '</div>' +
             '<div>' +
+            (companyLink ? '<a target="_blank" href="' + companyLink + '">' : '') +
             '<p class="text name">' + el.Name + '</p>' +
             '<p class="text address">' + address + municipality + '</p>' +
+            (companyLink ? '</a>' : '') +
             '</div>' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper ">' +
             '<div class="grade near-me-icon"></div>' +
-            '<p class="text name">' + el.distance + 'km</p>' +
+            '<p class="text name">' + (el.distance || '> 10') + 'km</p>' +
             '</div>' +
             '<div>' +
             '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\')">Standort</div>' +
