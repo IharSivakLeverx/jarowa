@@ -171,6 +171,10 @@ header {
 
 /* --- BILLBOARD --- */
 
+.single-field {
+    margin-top: 60px;
+}
+
 .billboard {
     display: flex;
     flex-wrap: wrap;
