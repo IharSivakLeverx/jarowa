@@ -176,9 +176,8 @@ function pinsInit() {
             map: map,
             icon: iconPin
         });
-        // onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, ${element.Id})}"
         let contentString =
-            `<div id="content" class="${element.Id}" onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, '${element.Id}')">` +
+            `<div id="content" class="${element.Id}" onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, '${element.Id}', ${true})">` +
             '<div id="siteNotice">' +
             '</div>' +
             '<div id="bodyContent">' +
@@ -193,7 +192,7 @@ function pinsInit() {
         marker.setVisible(false);
 
         google.maps.event.addListener(marker, 'click', function() {
-            triggerClick(element.Id);
+            triggerClick(element.Id, true);
         });
 
         google.maps.event.addListener(marker, 'mouseover', function() {
@@ -232,7 +231,7 @@ function redrawHover(element, marker, style, active) {
   //map.getBounds();
 }
 
-function triggerClick(Id) {
+function triggerClick(Id, resort=false) {
   const marker = displayPoints.find(item => item.Id === Id);
   displayPoints.forEach(item => {
       if (item && item.marker){
@@ -244,9 +243,11 @@ function triggerClick(Id) {
   }
 
   const newArray = displayPoints.filter(item => item.Id !== Id);
-  displayProviders([marker, ...newArray]);
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0;
+  if (resort) {
+      displayProviders([marker, ...newArray]);
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0;
+  }
 
   //map.getBounds();
 }
@@ -285,7 +286,7 @@ function displayProviders(data) {
             '<p class="text name">' + (el.distance || '> 10') + 'km</p>' +
             '</div>' +
             '<div>' +
-            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\')">Standort</div>' +
+            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\', '+ false +')">Standort</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -296,10 +297,10 @@ function displayProviders(data) {
         document.querySelector(".providers-wrapper").innerHTML = content;
     }
 }
-function clickButtonSetCenterMap(lat, lng, name, Id) {
+function clickButtonSetCenterMap(lat, lng, name, Id, resort=false) {
     logCustomEvent(EVENTS.POSITION, {'name': name,})
     map.setCenter(new google.maps.LatLng(lat, lng));
-    triggerClick(Id);
+    triggerClick(Id, resort);
 }
 
 function clickButtonCallAction(event) {
