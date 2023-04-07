@@ -75,12 +75,13 @@ function updateMap() {
     }
 
     // If the place has a geometry, then present it on a map.
+    map.setZoom(window.innerWidth < 800 ? 30 : 10);
     if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
     } else {
         map.setCenter(place.geometry.location);
     }
-    map.setZoom(window.innerWidth < 800 ? 18 : 16,);
+    // map.setZoom(window.innerWidth < 800 ? 18 : 16);
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -98,20 +99,30 @@ function updateMap() {
         postalCode = place.address_components.filter(item => item.types.includes("postal_code"))[0].long_name;
         newArray = arrayOfMarkers.filter(item => {
             const visible = item.ContactDetails.CompanyAddress.ZipCode === postalCode;
-            if (visible) {
+            // if (visible) {
+            //     item.infoWindow.open({anchor: item.marker, map: map});
+            //     item.marker.setVisible(true);
+            // } else {
+            //     item.infoWindow.close({anchor: item.marker, map: map});
+            //     item.marker.setVisible(false);
+            // }
+            return visible;
+        });
+        if (newArray.length) displayNearPoints = displayNearPoints.slice(0,3);
+        const idsArray = displayNearPoints.map(item => item.Id);
+        arrayOfMarkers.forEach((item) => {
+            if (idsArray.includes(item.Id)) {
                 item.infoWindow.open({anchor: item.marker, map: map});
                 item.marker.setVisible(true);
             } else {
                 item.infoWindow.close({anchor: item.marker, map: map});
                 item.marker.setVisible(false);
             }
-            return visible;
-        });
-        if (newArray.length) displayNearPoints = displayNearPoints.slice(0,3);
+        })
     } catch (error) {
         console.log(`Postal code wasn't found due to: ${error}`);
         postalCode = "";
-        // newArray = arrayOfMarkers;
+        newArray = arrayOfMarkers;
         displayNearPoints = arrayOfMarkers;
         newArray.forEach(item => {
             item.infoWindow.open({anchor: item.marker, map: map});
