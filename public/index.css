@@ -92,6 +92,10 @@
     margin: 0;
 }
 
+.active-address-element {
+    background-color: #3BDC541F;
+}
+
 body {
     position: relative;
     margin: 0;

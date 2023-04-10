@@ -266,12 +266,24 @@ function triggerClick(Id, resort=false) {
       redrawHover(marker, marker.marker, ' active', true)
   }
 
-  const newArray = displayPoints.filter(item => item.Id !== Id);
+  document.querySelectorAll(".provider-item").forEach(item => {
+      item.classList.remove('active-address-element');
+  });
+
+  const selectedElement = document.getElementById(Id);
+  if (selectedElement) {
+      selectedElement.classList.add('active-address-element');
+  }
+
+  // TODO remove if this changes will be block
+  /*
   if (resort) {
+      const newArray = displayPoints.filter(item => item.Id !== Id);
       displayProviders([marker, ...newArray]);
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0;
   }
+  */
 
   //map.getBounds();
 }
@@ -283,7 +295,7 @@ function displayProviders(data) {
         let address = el.ContactDetails.CompanyAddress.Street ? el.ContactDetails.CompanyAddress.Street + ' ' + el.ContactDetails.CompanyAddress.HouseNumber + ', ' : '';
         let municipality = el.ContactDetails.CompanyAddress.Municipality ? el.ContactDetails.CompanyAddress.Municipality + ' ' + el.ContactDetails.CompanyAddress.ZipCode : '';
         content +=
-            '<div class="provider-item">' +
+            `<div class="provider-item" id="${el.Id}">` +
             '<div class="content-wrapper">' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper">' +
