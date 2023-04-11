@@ -81,8 +81,6 @@ function updateMap() {
     } else {
         map.setCenter(place.geometry.location);
     }
-    map.setCenter(place.geometry.location);
-    map.setZoom(window.innerWidth < 800 ? 12 : 10);
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -119,7 +117,8 @@ function updateMap() {
         setTimeout(() => triggerClick(displayPoints[0].Id, true), 0);
     }
     const bounds = new google.maps.LatLngBounds();
-    displayNearPoints.forEach((item) => bounds.extend(item.marker))
+    bounds.extend(marker.getPosition());
+    displayNearPoints.forEach((item) => bounds.extend(item.marker.getPosition()))
     map.fitBounds(bounds);
 }
 
@@ -145,7 +144,7 @@ function haversine_distance(mk1, mk2) {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: window.innerWidth < 800 ? 30 : 10,
+        zoom: window.innerWidth < 800 ? 12 : 10,
         center: {lat: 47.37882, lng: 8.54463}
     });
     map.setOptions({styles: googleMapStyles});
