@@ -75,48 +75,49 @@ function updateMap() {
     }
 
     // If the place has a geometry, then present it on a map.
+    // map.setZoom(window.innerWidth < 800 ? 30 : 10);
     if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
     } else {
         map.setCenter(place.geometry.location);
     }
-    map.setZoom(window.innerWidth < 800 ? 18 : 16,);
+    map.setCenter(place.geometry.location);
+    map.setZoom(window.innerWidth < 800 ? 12 : 10);
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
-    let postalCode, newArray;
+    let newArray, displayNearPoints;
+
     try {
-        postalCode = place.address_components.filter(item => item.types.includes("postal_code"))[0].long_name;
-        newArray = arrayOfMarkers.filter(item => {
-            const visible = item.ContactDetails.CompanyAddress.ZipCode === postalCode;
-            if (visible) {
-                item.infoWindow.open({anchor: item.marker, map: map});
-                item.marker.setVisible(true);
-            } else {
-                item.infoWindow.close({anchor: item.marker, map: map});
-                item.marker.setVisible(false);
-            }
-            return visible;
-        });
+        // Calculate and display the distance between markers
+        displayNearPoints = arrayOfMarkers.map(item => ({
+            ...item,
+            distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
+        }))
+        displayNearPoints = displayNearPoints.sort((a, b) => (a.distance - b.distance));
     } catch (error) {
         console.log(`Postal code wasn't found due to: ${error}`);
-        postalCode = "";
-        newArray = arrayOfMarkers;
-        newArray.forEach(item => {
-            item.infoWindow.open({anchor: item.marker, map: map});
-            item.marker.setVisible(true);
-        })
+        if (!displayNearPoints) displayNearPoints = arrayOfMarkers;
     }
 
-    // Calculate and display the distance between markers
-    let displayNearPoints = newArray.map(item => ({
-        ...item,
-        distance: (haversine_distance(marker, item.marker) * 1.60934).toFixed(1)
-    }))
-    displayNearPoints = displayNearPoints.sort((a, b) => (a.distance - b.distance));
+    displayNearPoints = displayNearPoints.slice(0,3);
+    const idsArray = displayNearPoints.map(item => item.Id);
+    arrayOfMarkers.forEach((item) => {
+        if (idsArray.includes(item.Id)) {
+            item.infoWindow.open({anchor: item.marker, map: map});
+            item.marker.setVisible(true);
+        } else {
+            item.infoWindow.close({anchor: item.marker, map: map});
+            item.marker.setVisible(false);
+        }
+    })
+
     displayPoints = displayNearPoints;
     displayProviders(displayNearPoints);
+    const bounds = new google.maps.LatLngBounds();
+    displayNearPoints.forEach((item) => bounds.extend(item.marker))
+    map.fitBounds(bounds);
 }
 
 function applyForm(event) {
@@ -148,7 +149,7 @@ function initMap() {
 
     const input = document.getElementById("street");
     const center = {lat: 50.064192, lng: -130.605469};
-// Create a bounding box with sides ~10km away from the center point
+    // Create a bounding box with sides ~10km away from the center point
     const defaultBounds = {
         north: center.lat + 0.1,
         south: center.lat - 0.1,
@@ -168,8 +169,6 @@ function initMap() {
 
 function pinsInit() {
     let iconPin = './assets/map_pin.svg';
-    let iconPinActive = './assets/map_pin_highlighted.svg';
-
 
     return dataProviders.map(function (element) {
         let marker = new google.maps.Marker({
@@ -178,7 +177,7 @@ function pinsInit() {
             icon: iconPin
         });
         let contentString =
-            `<div id="content" class="${element.Id}">` +
+            `<div id="content" class="${element.Id}" onmouseover="hoverInfoToHoverPin('${element.Id}', ${true})" onmouseout="hoverInfoToHoverPin('${element.Id}', ${false})" onclick="clickButtonSetCenterMap(${element.ContactDetails.CompanyAddress.GeolocationX}, ${element.ContactDetails.CompanyAddress.GeolocationY}, ${element.ContactDetails.name}, '${element.Id}', ${true})">` +
             '<div id="siteNotice">' +
             '</div>' +
             '<div id="bodyContent">' +
@@ -193,7 +192,8 @@ function pinsInit() {
         marker.setVisible(false);
 
         google.maps.event.addListener(marker, 'click', function() {
-            triggerClick(element.Id);
+            redrawHover(element, marker, ' highlighted', false);
+            triggerClick(element.Id, true);
         });
 
         google.maps.event.addListener(marker, 'mouseover', function() {
@@ -232,7 +232,30 @@ function redrawHover(element, marker, style, active) {
   //map.getBounds();
 }
 
-function triggerClick(Id) {
+function hoverInfoToHoverPin(Id, hoverState) {
+    const marker = displayPoints.find(item => item.Id === Id);
+    if (marker && marker.marker) {
+        let iconPin = './assets/map_pin.svg';
+        let iconPinActive = './assets/map_pin_highlighted.svg';
+        const className = Id;
+        try {
+            const container = document.getElementsByClassName(className)[0];
+            const parent = container.parentElement.parentElement.parentElement;
+            if (!parent.className.includes('active')) {
+                if (hoverState) {
+                    marker.marker.setIcon(iconPinActive);
+                }
+                else {
+                    marker.marker.setIcon(iconPin);
+                }
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
+function triggerClick(Id, resort=false) {
   const marker = displayPoints.find(item => item.Id === Id);
   displayPoints.forEach(item => {
       if (item && item.marker){
@@ -243,10 +266,24 @@ function triggerClick(Id) {
       redrawHover(marker, marker.marker, ' active', true)
   }
 
-  const newArray = displayPoints.filter(item => item.Id !== Id);
-  displayProviders([marker, ...newArray]);
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0;
+  document.querySelectorAll(".provider-item").forEach(item => {
+      item.classList.remove('active-address-element');
+  });
+
+  const selectedElement = document.getElementById(Id);
+  if (selectedElement) {
+      selectedElement.classList.add('active-address-element');
+  }
+
+  // TODO remove if this changes will be block
+  /*
+  if (resort) {
+      const newArray = displayPoints.filter(item => item.Id !== Id);
+      displayProviders([marker, ...newArray]);
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0;
+  }
+  */
 
   //map.getBounds();
 }
@@ -254,10 +291,11 @@ function triggerClick(Id) {
 function displayProviders(data) {
     let content = '';
     data.forEach((el) => {
+        let companyLink = el.ContactDetails.CompanyWebsite;
         let address = el.ContactDetails.CompanyAddress.Street ? el.ContactDetails.CompanyAddress.Street + ' ' + el.ContactDetails.CompanyAddress.HouseNumber + ', ' : '';
         let municipality = el.ContactDetails.CompanyAddress.Municipality ? el.ContactDetails.CompanyAddress.Municipality + ' ' + el.ContactDetails.CompanyAddress.ZipCode : '';
         content +=
-            '<div class="provider-item">' +
+            `<div class="provider-item" id="${el.Id}">` +
             '<div class="content-wrapper">' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper">' +
@@ -273,16 +311,18 @@ function displayProviders(data) {
             '</div>' +
             '</div>' +
             '<div>' +
+            (companyLink ? '<a target="_blank" href="' + companyLink + '">' : '') +
             '<p class="text name">' + el.Name + '</p>' +
             '<p class="text address">' + address + municipality + '</p>' +
+            (companyLink ? '</a>' : '') +
             '</div>' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper ">' +
             '<div class="grade near-me-icon"></div>' +
-            '<p class="text name">' + el.distance + 'km</p>' +
+            '<p class="text name">' + (el.distance || '> 10') + 'km</p>' +
             '</div>' +
             '<div>' +
-            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\')">Standort</div>' +
+            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\', '+ false +')">Standort</div>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -293,10 +333,10 @@ function displayProviders(data) {
         document.querySelector(".providers-wrapper").innerHTML = content;
     }
 }
-function clickButtonSetCenterMap(lat, lng, name, Id) {
+function clickButtonSetCenterMap(lat, lng, name, Id, resort=false) {
     logCustomEvent(EVENTS.POSITION, {'name': name,})
     map.setCenter(new google.maps.LatLng(lat, lng));
-    triggerClick(Id);
+    triggerClick(Id, resort);
 }
 
 function clickButtonCallAction(event) {
@@ -647,7 +687,7 @@ dataProviders = [{
                 "GeolocationX": 47.4038966,
                 "GeolocationY": 8.5343584
             },
-            "CompanyWebsite": "www.iogroup.ai"
+            "CompanyWebsite": "https://www.iogroup.ai"
         }
     },
     {
