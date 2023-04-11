@@ -87,7 +87,7 @@ function updateMap() {
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
 
-    let newArray, displayNearPoints;
+    let displayNearPoints;
 
     try {
         // Calculate and display the distance between markers
@@ -115,6 +115,9 @@ function updateMap() {
 
     displayPoints = displayNearPoints;
     displayProviders(displayNearPoints);
+    if (displayNearPoints[0]) {
+        setTimeout(() => triggerClick(displayPoints[0].Id, true), 0);
+    }
     const bounds = new google.maps.LatLngBounds();
     displayNearPoints.forEach((item) => bounds.extend(item.marker))
     map.fitBounds(bounds);
@@ -262,6 +265,7 @@ function triggerClick(Id, resort=false) {
           redrawHover(item, item.marker, ' active', false)
       }
   });
+
   if (marker && marker.marker) {
       redrawHover(marker, marker.marker, ' active', true)
   }
@@ -292,10 +296,13 @@ function displayProviders(data) {
     let content = '';
     data.forEach((el) => {
         let companyLink = el.ContactDetails.CompanyWebsite;
+        let companyLinkText = el.ContactDetails.CompanyWebsite && el.ContactDetails.CompanyWebsite.replace('https://', '');
         let address = el.ContactDetails.CompanyAddress.Street ? el.ContactDetails.CompanyAddress.Street + ' ' + el.ContactDetails.CompanyAddress.HouseNumber + ', ' : '';
         let municipality = el.ContactDetails.CompanyAddress.Municipality ? el.ContactDetails.CompanyAddress.Municipality + ' ' + el.ContactDetails.CompanyAddress.ZipCode : '';
+        // onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\', '+ false +')"
+        // onclick="clickButtonSetCenterMap(${el.ContactDetails.CompanyAddress.GeolocationX}, ${el.ContactDetails.CompanyAddress.GeolocationY}, ${el.ContactDetails.name}, '${el.Id}', ${false})"
         content +=
-            `<div class="provider-item" id="${el.Id}">` +
+            `<div class="provider-item" id="${el.Id}" onclick="clickButtonSetCenterMap(${el.ContactDetails.CompanyAddress.GeolocationX}, ${el.ContactDetails.CompanyAddress.GeolocationY}, ${el.ContactDetails.name}, '${el.Id}', ${false})">` +
             '<div class="content-wrapper">' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper">' +
@@ -311,18 +318,17 @@ function displayProviders(data) {
             '</div>' +
             '</div>' +
             '<div>' +
-            (companyLink ? '<a target="_blank" href="' + companyLink + '">' : '') +
             '<p class="text name">' + el.Name + '</p>' +
             '<p class="text address">' + address + municipality + '</p>' +
-            (companyLink ? '</a>' : '') +
             '</div>' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper ">' +
             '<div class="grade near-me-icon"></div>' +
             '<p class="text name">' + (el.distance || '> 10') + 'km</p>' +
             '</div>' +
+            (companyLink ? `<div><a target="_blank" class="text link" href="${companyLink}">${companyLinkText}</a></div>` : '') +
             '<div>' +
-            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '" onclick="clickButtonSetCenterMap(' + el.ContactDetails.CompanyAddress.GeolocationX + ', ' + el.ContactDetails.CompanyAddress.GeolocationY + ', \'' + el.ContactDetails.name + '\', \'' + el.Id + '\', '+ false +')">Standort</div>' +
+            '<div class="text name standort-button" data-lat="' + el.ContactDetails.CompanyAddress.GeolocationX + '" data-lng="' + el.ContactDetails.CompanyAddress.GeolocationY + '">Standort</div>' +
             '</div>' +
             '</div>' +
             '</div>' +

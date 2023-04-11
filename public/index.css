@@ -865,6 +865,10 @@ footer .logo {
     line-height: 1.2em;
     margin: 0;
 }
+a.text {
+    color: #023059;
+}
+
 .text.name {
     font-weight: 600;
     font-size: 16px;
