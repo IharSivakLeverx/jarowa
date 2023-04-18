@@ -21,6 +21,7 @@
     <title>Jarowa</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./cookies.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Work+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap"
@@ -244,5 +245,39 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzYISYlcteVuJ-F-5Z7kdzwej-dgiBIIg&libraries=places&callback=initMap&v=weekly"
         defer
 ></script>
+<div id="cookie-modal" class="modal-cookies-style cookie-hidden ui-dialog ui-widget ui-widget-content ui-corner-all ui-front cc-individual-cookie-settings ui-draggable" tabindex="-1" role="dialog" aria-describedby="cc-individual-cookie-settings" aria-labelledby="ui-id-1">
+    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle">
+        <span id="ui-id-1" class="ui-dialog-title">&nbsp;</span>
+        <button onclick="closeCookies('cross')" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close">
+            <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+            <span class="ui-button-text">Close</span>
+        </button>
+    </div>
+    <div class="cc-individual-cookie-settings ui-dialog-content ui-widget-content" id="cc-individual-cookie-settings" style="width: auto;min-height: 148px;max-height: none;height: auto;background-color: white;" data-nosnippet="true">
+        <div data-render-group="all-categories-view" class="all-categories-view" style="display: block;">
+            <div class="cc-individual-cookie-settings-texts">
+                <span data-render-group="all-categories-view" data-action="acceptNecessary" id="cookie-settings-necessary" class="accept-necessary" style="display: block;">x</span>
+                <h2>Cookie Policy</h2>
+                <p>This website uses cookies to give you the best online experience. Please let us know if you agree by clicking on the “Accept” option below. If you’d like to find out more about the cookies we use and set your individual cookie preferences, please review our Cookie Policy.</p>
+                <div class="links">
+                    <a href="https://www.jarowa.group/about/">Imprint</a>
+                    <a href="https://www.jarowa.group/j/privacy">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="cc-individual-cookie-settings-actions">
+            <button onclick="closeCookies('accept_all')" data-render-group="all-categories-view" data-action="acceptAll" id="cookie-settings-all" class="btn btn-primary" autofocus="true" style="display: block;">
+                Accept all
+            </button>
+            <button onclick="closeCookies('only_required')" data-render-group="all-categories-view" data-action="acceptSelected" id="cookie-settings-selected" class="btn" style="display: block;">
+                Accept only required
+            </button>
+            <button onclick="closeCookies('reject_all')" data-render-group="all-categories-view" data-action="acceptNecessary" id="cookie-settings-reject-all" class="btn" style="display: block;">
+                Reject all
+            </button>
+        </div>
+    </div>
+</div>
+<div id="cookie-background" class="cookie-hidden ui-widget-overlay ui-front cc-individual-cookie-settings-overlay" style="z-index: 2147483646;"></div>
 </body>
 </html>

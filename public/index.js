@@ -365,6 +365,20 @@ function clickButtonCallAction(event) {
     });
 })();
 
+(function checkCookies() {
+    const cookiesResult = localStorage.getItem("jarowa-cookies");
+    if (!cookiesResult) {
+        document.getElementById('cookie-modal').classList.remove('cookie-hidden');
+        document.getElementById('cookie-background').classList.remove('cookie-hidden');
+    }
+})();
+
+function closeCookies(type) {
+    localStorage.setItem("jarowa-cookies", type);
+    document.getElementById('cookie-modal').classList.add('cookie-hidden');
+    document.getElementById('cookie-background').classList.add('cookie-hidden');
+}
+
 dataProviders = [{
     "Id": "17f878fe-ecf4-4558-b7d3-19db30e10cfa",
     "Name": "Craftsman",
