@@ -11,6 +11,7 @@ const EVENTS = {
     SEARCH: "search_position",
     POSITION: 'point_position',
     PHONE: 'click_phone',
+    CLOSE_COOKIES: 'close_cookies',
 }
 
 document.querySelector(".back").addEventListener("click", () => {
@@ -377,6 +378,7 @@ function closeCookies(type) {
     localStorage.setItem("jarowa-cookies", type);
     document.getElementById('cookie-modal').classList.add('cookie-hidden');
     document.getElementById('cookie-background').classList.add('cookie-hidden');
+    logCustomEvent(EVENTS.CLOSE_COOKIES, {'pressed': type});
 }
 
 dataProviders = [{
