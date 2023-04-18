@@ -77,9 +77,9 @@ function updateMap() {
     // If the place has a geometry, then present it on a map.
     // map.setZoom(window.innerWidth < 800 ? 30 : 10);
     if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
+        map.fitBounds(place.geometry.viewport, {duration: 0});
     } else {
-        map.setCenter(place.geometry.location);
+        map.setCenter(place.geometry.location, {duration: 0});
     }
 
     marker.setPosition(place.geometry.location);
@@ -119,16 +119,16 @@ function updateMap() {
     const bounds = new google.maps.LatLngBounds();
     bounds.extend(marker.getPosition());
     displayNearPoints.forEach((item) => bounds.extend(item.marker.getPosition()))
-    map.fitBounds(bounds);
+    map.fitBounds(bounds, {duration: 0});
 }
 
 function applyForm(event) {
     event.preventDefault();
-    togglePages();
     logCustomEvent(EVENTS.SEARCH, {
         'address': event.target.street.value,
     })
     updateMap();
+    togglePages();
 }
 
 function haversine_distance(mk1, mk2) {
@@ -145,7 +145,7 @@ function haversine_distance(mk1, mk2) {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: window.innerWidth < 800 ? 12 : 10,
-        center: {lat: 47.37882, lng: 8.54463}
+        center: {lat: 47.37882, lng: 8.54463},
     });
     map.setOptions({styles: googleMapStyles});
 
@@ -340,7 +340,7 @@ function displayProviders(data) {
 }
 function clickButtonSetCenterMap(lat, lng, name, Id, resort=false) {
     logCustomEvent(EVENTS.POSITION, {'name': name,})
-    map.setCenter(new google.maps.LatLng(lat, lng));
+    // map.setCenter(new google.maps.LatLng(lat, lng));
     triggerClick(Id, resort);
 }
 
