@@ -295,6 +295,7 @@ function triggerClick(Id, resort=false) {
 function displayProviders(data) {
     let content = '';
     data.forEach((el) => {
+        let companyImageLink = el.ContactDetails.websiteIcon;
         let companyLink = el.ContactDetails.CompanyWebsite;
         let companyLinkText = el.ContactDetails.CompanyWebsite && el.ContactDetails.CompanyWebsite.replace('https://', '');
         let address = el.ContactDetails.CompanyAddress.Street ? el.ContactDetails.CompanyAddress.Street + ' ' + el.ContactDetails.CompanyAddress.HouseNumber + ', ' : '';
@@ -317,9 +318,12 @@ function displayProviders(data) {
             '<a onclick="clickButtonCallAction(event)" href="tel:' + el.ContactDetails.TelephoneNumber + '" class="text address button-phone">Anrufen</a>' +
             '</div>' +
             '</div>' +
+            '<div style="display: flex">' +
+            `<div style="background-image: url(${companyImageLink}); width: 40px; height: 40px; border-radius: 40px; margin-right: 10px"></div>` +
             '<div>' +
             '<p class="text name">' + el.Name + '</p>' +
             '<p class="text address">' + address + municipality + '</p>' +
+            '</div>' +
             '</div>' +
             '<div class="column-wrapper">' +
             '<div class="rating-wrapper ">' +
@@ -398,7 +402,8 @@ dataProviders = [{
             "GeolocationX": 47.3783808,
             "GeolocationY": 8.5104531
         },
-        "CompanyWebsite": "https://www.jarowa.ch"
+        "CompanyWebsite": "https://www.jarowa.ch",
+        "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
     },
     "CompanyName": null
 },
@@ -419,7 +424,8 @@ dataProviders = [{
                 "GeolocationX": 47.3716248,
                 "GeolocationY": 8.5386461
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         }
     },
     {
@@ -439,7 +445,8 @@ dataProviders = [{
                 "GeolocationX": 47.1377369,
                 "GeolocationY": 8.5993136
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -460,7 +467,8 @@ dataProviders = [{
                 "GeolocationX": 47.423095,
                 "GeolocationY": 8.6020923
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -481,7 +489,8 @@ dataProviders = [{
                 "GeolocationX": 47.4765212,
                 "GeolocationY": 9.4714546
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -502,7 +511,8 @@ dataProviders = [{
                 "GeolocationX": 47.17720569999999,
                 "GeolocationY": 8.5214134
             },
-            "CompanyWebsite": ""
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         }
     },
     {
@@ -522,7 +532,8 @@ dataProviders = [{
                 "GeolocationX": 47.3763888,
                 "GeolocationY": 8.5392054
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         }
     },
     {
@@ -542,7 +553,8 @@ dataProviders = [{
                 "GeolocationX": 47.38584609999999,
                 "GeolocationY": 8.5271625
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -563,7 +575,8 @@ dataProviders = [{
                 "GeolocationX": 47.3717284,
                 "GeolocationY": 8.538556
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -584,7 +597,8 @@ dataProviders = [{
                 "GeolocationX": 47.3697857,
                 "GeolocationY": 8.538764
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -605,7 +619,8 @@ dataProviders = [{
                 "GeolocationX": 46.0082287,
                 "GeolocationY": 8.9601854
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -626,7 +641,8 @@ dataProviders = [{
                 "GeolocationX": 47.3768866,
                 "GeolocationY": 8.541694
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -647,7 +663,8 @@ dataProviders = [{
                 "GeolocationX": 47.1765591,
                 "GeolocationY": 8.5130895
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         },
         "CompanyName": null
     },
@@ -668,7 +685,8 @@ dataProviders = [{
                 "GeolocationX": 47.3778924,
                 "GeolocationY": 8.5299375
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://u.jimcdn.com/cms/o/s5bda40205b432c55/img/favicon.png?t=1520945032"
         }
     },
     {
@@ -688,7 +706,8 @@ dataProviders = [{
                 "GeolocationX": 46.8064773,
                 "GeolocationY": 7.161971899999999
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.jarowa.ch",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     },
     {
@@ -708,7 +727,8 @@ dataProviders = [{
                 "GeolocationX": 47.4038966,
                 "GeolocationY": 8.5343584
             },
-            "CompanyWebsite": "https://www.iogroup.ai"
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     },
     {
@@ -728,7 +748,8 @@ dataProviders = [{
                 "GeolocationX": 46.5233423,
                 "GeolocationY": 6.6287963
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     },
     {
@@ -748,7 +769,8 @@ dataProviders = [{
                 "GeolocationX": 47.3839705,
                 "GeolocationY": 8.4995509
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         },
         "CompanyName": null
     },
@@ -769,7 +791,8 @@ dataProviders = [{
                 "GeolocationX": 47.466608,
                 "GeolocationY": 8.333339
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     },
     {
@@ -789,7 +812,8 @@ dataProviders = [{
                 "GeolocationX": 47.3908923,
                 "GeolocationY": 8.5206804
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         },
         "CompanyName": null
     },
@@ -810,7 +834,8 @@ dataProviders = [{
                 "GeolocationX": 46.0503329,
                 "GeolocationY": 8.9489659
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     },
     {
@@ -830,7 +855,8 @@ dataProviders = [{
                 "GeolocationX": 47.4211865,
                 "GeolocationY": 9.3586293
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     },
     {
@@ -850,7 +876,8 @@ dataProviders = [{
                 "GeolocationX": 47.0834548,
                 "GeolocationY": 9.3203055
             },
-            "CompanyWebsite": null
+            "CompanyWebsite": "https://www.iogroup.ai",
+            "websiteIcon": "https://iogroup.ai/wp-content/uploads/2019/11/cropped-Siteicon-32x32.jpg"
         }
     }];
 
